@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stray Cat Feeding Log</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Stray Cat Feeding Log</h1>
+
+    <form id="feedingForm">
+      <label for="feederName">Feeder Name:</label>
+      <input type="text" id="feederName" required>
+
+      <label for="feedingComment">Feeding Comment:</label>
+      <input type="text" id="feedingComment" required>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <h2>Feeding Records</h2>
+    <ul id="feedingList"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
