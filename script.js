@@ -1,5 +1,6 @@
-// Replace with your actual Web App URL from Google Apps Script
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbzOyW-HXr-OIpoM58oNQ-GJ6zpiYxmkWiKPaY268kudy0WPpi_jT9RzMwO4n4wXPwcUug/exec"; // <-- paste your copied URL here
+// Use a proxy to bypass CORS
+const PROXY = "https://cors-anywhere.herokuapp.com/";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbzOyW-HXr-OIpoM58oNQ-GJ6zpiYxmkWiKPaY268kudy0WPpi_jT9RzMwO4n4wXPwcUug/exec";
 
 // Handle form submission
 document.getElementById("feedingForm").addEventListener("submit", async function(event) {
@@ -19,22 +20,21 @@ document.getElementById("feedingForm").addEventListener("submit", async function
       loggedAt: `${dateString} ${timeString}`
     };
 
-    // Send entry to Google Sheet via Apps Script endpoint
-    await fetch(SHEET_URL, {
+    // Send entry via proxy
+    await fetch(PROXY + SHEET_URL, {
       method: "POST",
       body: JSON.stringify(feedingEntry),
       headers: { "Content-Type": "application/json" }
     });
 
-    // Reload list from Google Sheet
     loadFeedings();
     document.getElementById("feedingForm").reset();
   }
 });
 
-// Fetch entries from Google Sheet
+// Fetch entries
 async function loadFeedings() {
-  const response = await fetch(SHEET_URL);
+  const response = await fetch(PROXY + SHEET_URL);
   const data = await response.json();
 
   const list = document.getElementById("feedingList");
@@ -47,5 +47,4 @@ async function loadFeedings() {
   });
 }
 
-// Load feedings when page opens
 window.addEventListener("DOMContentLoaded", loadFeedings);
